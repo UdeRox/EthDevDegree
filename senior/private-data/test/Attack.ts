@@ -14,7 +14,5 @@ describe("Attack to Login Contract", () => {
 
     expect(ethers.decodeBytes32String(await slot0Bytes)).to.equal("admin");
     expect(ethers.decodeBytes32String(await slot1Bytes)).to.equal("password");
-    
-
   });
 });
