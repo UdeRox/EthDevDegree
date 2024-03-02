@@ -12,10 +12,11 @@ contract Attack {
     Good public good;
 
     constructor(Good _good) {
-        good = _good;
+        good = Good(_good);
     }
 
     function setNum(uint256 _num) public {
+        owner = msg.sender;
         num = _num;
     }
 

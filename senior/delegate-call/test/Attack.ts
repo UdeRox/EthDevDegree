@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+const { expect } = require("chai");
 
 describe("delegate-call Attack", () => {
   it("Attack.sol will be able to change the owner of Good.sol", async () => {
@@ -7,15 +8,13 @@ describe("delegate-call Attack", () => {
     const helperContract = await helperFactory.deploy();
 
     const goodContractFactory = await ethers.getContractFactory("Good");
-    const good = await goodContractFactory
-      .connect(address1)
-      .deploy(helperContract);
+    const good = await goodContractFactory.deploy(helperContract.getAddress());
 
     const attackContractFactory = await ethers.getContractFactory("Attack");
-    const attackContract = await attackContractFactory
-      .connect(address1)
-      .deploy(good.getAddress());
+    const attackContract = await attackContractFactory.deploy(
+      good.getAddress()
+    );
     const txn = await attackContract.attack();
-    // expect(await good.owner()).to.equal(attackContract.address);
+    expect(await good.owner()).to.equal(await attackContract.getAddress());
   });
 });

@@ -12,6 +12,9 @@ contract Good {
     }
 
     function setNum(uint _num) public {
-        helper.delegatecall(abi.encodeWithSignature("setName(uint256)", _num));
+        (bool success, ) = helper.delegatecall(
+            abi.encodeWithSignature("setNum(uint256)", _num)
+        );
+        require(success, "setName failed");
     }
 }
