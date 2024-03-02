@@ -3,7 +3,6 @@ import { ethers } from "hardhat";
 
 describe("Student Contract delegate-call", () => {
     it("Should call the deletegate and add function", async () => {
-        const [_, address1] = await ethers.getSigners();
         const studentFactory = await ethers.getContractFactory("Student");
         const student = await studentFactory.deploy();
         const calculatorFactory = await ethers.getContractFactory("Calculator");
