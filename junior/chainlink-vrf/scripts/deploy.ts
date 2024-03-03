@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+const { FEE, VRF_COORDINATOR, LINK_TOKEN, KEY_HASH } = require("../constants");
 
 async function main() {
   const currentTimestampInSeconds = Math.round(Date.now() / 1000);

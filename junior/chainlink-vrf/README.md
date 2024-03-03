@@ -4,3 +4,4 @@
 npm install --save-dev @nomicfoundation/hardhat-toolbox
 npm install @openzeppelin/contracts
 npm install --save @chainlink/contracts
+npm install dotenv
