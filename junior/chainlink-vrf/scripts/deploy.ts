@@ -1,23 +1,28 @@
+//@ts-ignore
+// @ts-nocheck
 import { ethers } from "hardhat";
-const { FEE, VRF_COORDINATOR, LINK_TOKEN, KEY_HASH } = require("../constants");
+const { SUBSCRIPTION_ID,FEE,OWNER, VRF_COORDINATOR, LINK_TOKEN, KEY_HASH } = require("../constants");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  const randomWinnerGame = await ethers.deployContract("RandomWinnerGame", [
+    VRF_COORDINATOR,
+    KEY_HASH,
+    FEE,
+    SUBSCRIPTION_ID
+  ]);
 
-  const lockedAmount = ethers.parseEther("0.001");
+  await randomWinnerGame.waitForDeployment();
 
-  const lock = await ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
+  console.log(` deployed to ${randomWinnerGame.target}`);
+  await sleep(30000);
+  await hre.run("verify:verify", {
+    address: randomWinnerGame.target,
+    constructorArguments: [VRF_COORDINATOR, KEY_HASH, FEE, SUBSCRIPTION_ID],
   });
 
-  await lock.waitForDeployment();
-
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -1,23 +1,23 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.24;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract RandomWinnerGame is Ownable, VRFConsumerBaseV2 {
     VRFCoordinatorV2Interface COORDINATOR;
     address[] public players;
     bool public gameStarted;
     bytes32 public keyHash;
-    uint32 numWords;
     uint32 callBackGasLimit = 4000;
+    uint32 numWords;
     uint16 requestConfirmations = 3;
     uint64 public subscriptionId;
     uint8 public maxPlayers;
-    uint256 public entryFee;
     uint256 public gameId;
     uint256 public fee;
+    uint256 public entryFee;
 
     //Events
     event GameStarted(
@@ -34,12 +34,11 @@ contract RandomWinnerGame is Ownable, VRFConsumerBaseV2 {
     event FullFillRandomNumber(uint256 indexRequest, address winner);
 
     constructor(
-        address _owner,
         address _vrfCoordinator,
         bytes32 _vrfKeyHash,
         uint256 _vrfEntryFee,
         uint64 _subscriptionId
-    ) Ownable(_owner) VRFConsumerBaseV2(_vrfCoordinator) {
+    ) Ownable(msg.sender) VRFConsumerBaseV2(_vrfCoordinator) {
         COORDINATOR = VRFCoordinatorV2Interface(_vrfCoordinator);
         keyHash = _vrfKeyHash;
         fee = _vrfEntryFee;
