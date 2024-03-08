@@ -44,10 +44,11 @@ contract RandomWinnerGame is Ownable, VRFConsumerBaseV2 {
         fee = _vrfEntryFee;
         gameStarted = false;
         subscriptionId = _subscriptionId;
+        maxPlayers = 10;
     }
 
     function startGame(uint8 _maxPlayers, uint256 _entryFee) public onlyOwner {
-        require(gameStarted, "Game us currently running!");
+        require(!gameStarted, "Game is currently running!");
         require(_maxPlayers > 0, "Max players must be greater than 0");
         delete players;
         maxPlayers = _maxPlayers;
@@ -58,7 +59,7 @@ contract RandomWinnerGame is Ownable, VRFConsumerBaseV2 {
     }
 
     function joinGame() public payable {
-        require(gameStarted, "Game us currently running!");
+        require(gameStarted, "Game is currently running!");
         require(entryFee == msg.value, "Value sent not equal to entry fee");
         require(players.length < maxPlayers, "Game is full!");
         players.push(msg.sender);
