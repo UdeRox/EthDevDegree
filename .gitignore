@@ -1,6 +1,7 @@
 *node_modules
 *.history
 .env
+.DS_Store
 
 # Hardhat files
 /cache
