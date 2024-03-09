@@ -13,7 +13,7 @@ contract LW3Punks is ERC721, ERC721URIStorage, ERC721Pausable, Ownable {
     string _baseTokenURI;
     uint256 public maxTokenIds = 10;
     uint256 public _price = 0.001 ether;
-    uint256 private tokenId;
+    uint256 public tokenId;
 
     constructor(
         address initialOwner,
