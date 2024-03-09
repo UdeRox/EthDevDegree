@@ -1,6 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 Deployed URL : https://eth-dev-degree.vercel.app
+Deployed contract :https://mumbai.polygonscan.com/address/0xa0676efe2955f1fb8370d8521b477e832ccbc88b
 
 ## Getting Started
 
