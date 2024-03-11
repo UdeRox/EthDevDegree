@@ -2,7 +2,7 @@
 pragma solidity ^0.8.24;
 import "./Good.sol";
 
-contract Attact {
+contract Attack {
     Good good;
 
     constructor(address _good) {
